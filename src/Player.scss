@@ -1,0 +1,136 @@
+$two-px: 0.15vw;
+$border-amount: 2.75vw;
+$card-width: (1.5 * 2.5) * 1vw;
+$card-height: (1.5 * 3.5) * 1vw;
+$card-offset-from-border: 0.75 * $card-width;
+$left-leaning-border: $border-amount 0 0 $border-amount;
+$right-leaning-border: 0 $border-amount $border-amount 0;
+$right-leaning-selectors: "#poker_table > .poker_player:nth-child(n+3):nth-child(-n+4)";
+
+.player_infobox {
+	z-index: 100;
+	position:absolute;
+	width: 100%;
+	height: 100%;
+
+	display: grid;
+	grid-template-columns: 40% 20% 41%;
+	grid-template-rows: repeat(4, 20%);
+
+	border: $two-px solid black;
+	border-radius: $left-leaning-border;
+	background-color: gray;
+
+	text-align: center;
+}
+
+#{$right-leaning-selectors} .player_infobox {
+	border-radius: $right-leaning-border;
+}
+
+.player_infobox > .player_icon {
+	background-size: 100% auto;
+
+	width: calc(100% - $two-px);
+	height: calc(100% - $two-px);
+
+	grid-column: 1 / 2;
+	grid-row: 1 / 6;
+	outline: $two-px solid black;
+	border-radius: $border-amount;
+}
+
+#{$right-leaning-selectors} .player_icon {
+	grid-column: 3 / 4;
+}
+
+
+
+.player_infobox > .player_name {
+	grid-column: 2 / 4;
+	grid-row: 1 / 3;
+
+	font-size: 1.8vw;
+}
+
+.player_infobox > .player_stack_size {
+	grid-column: 2 / 4;
+	grid-row: 3 / 5;
+
+	font-size: 1.8vw;
+}
+
+.player_infobox > .player_action {
+	grid-column: 2 / 4;
+	grid-row: 5 / 6;
+	font-size: 1vw;
+}
+
+#{$right-leaning-selectors} .player_action,
+#{$right-leaning-selectors} .player_stack_size,
+#{$right-leaning-selectors} .player_name {
+	grid-column: 1 / 3;
+}
+
+.player_cards {
+	z-index: 99;
+	position: absolute;
+	display: flex;
+
+	left: $card-offset-from-border;
+	top: -($card-height - calc($card-height / 5));
+}
+
+#{$right-leaning-selectors} .player_cards {
+	// Not exactly the same position as the other side, but its close enough
+	// to fool you into thinking it is. Margins on the card make the math hard
+	left: calc(100% - $card-offset-from-border - 2 * $card-width);
+
+}
+
+.poker_card {
+	width: $card-width;
+	height: $card-height;
+	margin: 0.1vw;
+}
+
+.player_chips {
+	position: absolute;
+	display: flex;
+	
+	gap: 1vw;
+}
+
+#poker_table > .poker_player:nth-child(n+7):nth-child(-n+8) > .player_chips {
+	flex-direction: row-reverse;
+}
+
+#poker_table > .poker_player:nth-child(n+1):nth-child(-n+4) .player_button,
+#poker_table > .poker_player:nth-child(n+7):nth-child(-n+9) .player_button {
+	align-self: end;
+}
+
+.player_button {
+	$size: 1.5vw;
+	width: $size;
+	height: $size;
+	border-radius: $size;
+
+	text-align: center;
+	line-height: $size;
+}
+
+.player_button.big_blind { background-color: goldenrod; }
+.player_button.big_blind::before { content: 'B'; }
+
+.player_button.small_blind { background-color: mediumpurple; }
+.player_button.small_blind::before { content: 'S'; }
+
+.player_button.dealer { background-color: white; }
+.player_button.dealer::before { content: 'D'; }
+
+.poker_chips {
+	width: 3vw;
+	height: 3vw;
+	image-rendering: pixelated;
+}

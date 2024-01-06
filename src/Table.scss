@@ -1,0 +1,156 @@
+@use "sass:math" as math;
+$squircle-height: 35;
+$squircle-width: 80;
+$squircle-radius: calc($squircle-height / 2);
+$squircle-units: 1vw;
+$off-center-adjustor: 4;
+
+$circumference: 2 * $squircle-height + 2 * $squircle-width + 2 * math.$pi * $squircle-radius - 8 * $squircle-radius;
+
+$player-size: 5.5 * $squircle-units;
+$player-width: 2.5 * $player-size;
+$player-height: $player-size;
+
+#poker_table {
+	width: $squircle-width * $squircle-units;
+	height: $squircle-height * $squircle-units;
+
+	border: 2px solid black;
+	border-radius: $squircle-radius * $squircle-units;
+}
+
+/* https://codepen.io/t_afif/pen/YzaoqVV */
+/* Temani Afif */
+/* CSS only radial pattern */
+#poker_table  {
+	--s: 20px; /* control the size */
+	
+	--_g: #0000 83%,#634c1b 85% 99%,#0000 101%;
+	background:
+		radial-gradient(27% 29% at right ,var(--_g)) calc(var(--s)/ 2) var(--s),
+		radial-gradient(27% 29% at left  ,var(--_g)) calc(var(--s)/-2) var(--s),
+		radial-gradient(29% 27% at top   ,var(--_g)) 0 calc(var(--s)/ 2),
+		radial-gradient(29% 27% at bottom,var(--_g)) 0 calc(var(--s)/-2)
+		rgb(105, 9, 9);
+	background-size: calc(2*var(--s)) calc(2*var(--s));
+}
+
+.poker_player {
+	display: block;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	$width: $player-width;
+	$height: $player-height;
+
+	width: $width;
+	height: $height;
+	margin: calc(-1 * $height + $height / 2) calc(-1 * $width + $width / 2);
+}
+
+#poker_table > .poker_player:nth-child(1) {
+	transform:
+	translateY(calc($squircle-height / 2) * $squircle-units)
+}
+
+#poker_table > .poker_player:nth-child(9) {
+	transform:
+	translateY(calc($squircle-height / 2) * $squircle-units)
+	translateX(calc($circumference / 9) * $squircle-units)
+}
+
+#poker_table > .poker_player:nth-child(2) {
+	transform:
+	translateY(calc($squircle-height / 2) * $squircle-units)
+	translateX(calc($circumference / 9) * -$squircle-units)
+}
+
+#poker_table > .poker_player:nth-child(5) {
+	transform:
+	translateY(calc($squircle-height / 2) * -$squircle-units)
+	translateX(calc($circumference / 18) * -$squircle-units)
+}
+
+#poker_table > .poker_player:nth-child(6) {
+	transform: 
+	translateY(calc($squircle-height / 2) * -$squircle-units)
+	translateX(calc($circumference / 18) * $squircle-units)
+}
+
+#poker_table > .poker_player:nth-child(3) {
+	transform:
+	translateY(calc($squircle-height / 2 - $squircle-radius) * $squircle-units)
+	translateX(calc($squircle-width / 2 - $squircle-radius) * -$squircle-units)
+	rotate(calc((4 * $circumference - 9 * $squircle-width + 18 * $squircle-radius) / (18 * $squircle-radius)) * 1rad + 90deg)
+	translate($squircle-radius * $squircle-units)
+	rotate(-(calc((4 * $circumference - 9 * $squircle-width + 18 * $squircle-radius) / (18 * $squircle-radius)) * 1rad + 90deg))
+	translateX(-(calc($player-size / $off-center-adjustor)))
+}
+
+#poker_table > .poker_player:nth-child(8) {
+	transform:
+	translateY(calc($squircle-height / 2 - $squircle-radius) * $squircle-units)
+	translateX(calc($squircle-width / 2 - $squircle-radius) * $squircle-units)
+	rotate(calc((4 * $circumference - 9 * $squircle-width + 18 * $squircle-radius) / (18 * $squircle-radius)) * -1rad + 90deg)
+	translate($squircle-radius * $squircle-units)
+	rotate(-(calc((4 * $circumference - 9 * $squircle-width + 18 * $squircle-radius) / (18 * $squircle-radius)) * -1rad + 90deg))
+	translateX(calc($player-size / $off-center-adjustor))
+}
+
+#poker_table > .poker_player:nth-child(4) {
+	transform:
+	translateY(calc($squircle-height / 2 - $squircle-radius) * $squircle-units)
+	translateX(calc($squircle-width / 2 - $squircle-radius) * -$squircle-units)
+	rotate(calc((4 * $circumference - 9 * $squircle-width + 18 * $squircle-radius) / (18 * $squircle-radius)) * 1rad + 90deg)
+	rotate(calc($circumference / $squircle-radius) * -1rad)
+	translate($squircle-radius * $squircle-units)
+	rotate(-(calc((4 * $circumference - 9 * $squircle-width + 18 * $squircle-radius) / (18 * $squircle-radius)) * 1rad + 90deg))
+	rotate(calc($circumference / $squircle-radius) * 1rad)
+	translateX(-(calc($player-size / $off-center-adjustor)))
+}
+
+#poker_table > .poker_player:nth-child(7) {
+	transform:
+	translateY(calc($squircle-height / 2 - $squircle-radius) * $squircle-units)
+	translateX(calc($squircle-width / 2 - $squircle-radius) * $squircle-units)
+	rotate(calc((4 * $circumference - 9 * $squircle-width + 18 * $squircle-radius) / (18 * $squircle-radius)) * -1rad + 90deg)
+	rotate(calc($circumference / $squircle-radius) * 1rad)
+	translate($squircle-radius * $squircle-units)
+	rotate(-(calc((4 * $circumference - 9 * $squircle-width + 18 * $squircle-radius) / (18 * $squircle-radius)) * -1rad + 90deg))
+	rotate(calc($circumference / $squircle-radius) * -1rad)
+	translateX(calc($player-size / $off-center-adjustor))
+}
+
+#poker_table > .poker_player:nth-child(1) > .player_chips,
+#poker_table > .poker_player:nth-child(2) > .player_chips,
+#poker_table > .poker_player:nth-child(9) > .player_chips {
+	transform:
+	translateX(-40%)
+	translateY(-1.4 * $player-height)
+	translateX(0.5 * $player-width);
+}
+
+#poker_table > .poker_player:nth-child(5) > .player_chips,
+#poker_table > .poker_player:nth-child(6) > .player_chips {
+	transform:
+	translateX(-40%)
+	translateY(1.2 * $player-height)
+	translateX(0.5 * $player-width);
+}
+
+#poker_table > .poker_player:nth-child(3) > .player_chips,
+#poker_table > .poker_player:nth-child(4) > .player_chips {
+	transform:
+	translateX(-40%)
+	translateY(0.3 * $player-height)
+	translateX(1.2 * $player-width);
+}
+
+#poker_table > .poker_player:nth-child(7) > .player_chips,
+#poker_table > .poker_player:nth-child(8) > .player_chips {
+	transform:
+	translateX(-40%)
+	translateY(0.3 * $player-height)
+	translateX(-0.3 * $player-width);
+}
